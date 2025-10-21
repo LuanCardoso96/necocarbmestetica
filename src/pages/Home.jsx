@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { Calendar, Award, Users, ChevronRight, Star, Trophy, Crown, Medal, ChevronLeft } from "lucide-react";
+import { Calendar, Award, Users, ChevronRight, Star, Trophy, Crown, Medal, ChevronLeft, Quote } from "lucide-react";
 
 const heroImages = [
   "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_68d01f4b0f1be92cf1092b7c/17bb304a8_1.png",
@@ -472,34 +472,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Benefícios */}
-      <section className="py-24 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2 
+      {/* Benefícios - Design Premium */}
+      <section className="relative py-32 px-4 bg-gradient-to-b from-white via-blue-50/30 to-white overflow-hidden">
+        {/* Elementos decorativos de fundo */}
+        <div className="absolute top-10 right-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-center mb-16 text-blue-600"
+            className="text-center mb-16"
           >
-            Por que escolher a BM Estética?
-          </motion.h2>
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              className="inline-block mb-4"
+            >
+              <Badge className="bg-blue-50 text-blue-600 border border-blue-200 px-6 py-2 text-sm font-semibold">
+                ✨ Diferenciais Exclusivos
+              </Badge>
+            </motion.div>
+            
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 bg-clip-text text-transparent">
+              Por que escolher a BM Estética?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Benefícios exclusivos que só nós oferecemos
+            </p>
+          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 icon: Award,
                 title: "Programa de Fidelidade",
-                description: "Acumule pontos a cada serviço e ganhe descontos exclusivos"
+                description: "Acumule pontos a cada serviço e ganhe descontos exclusivos",
+                gradient: "from-blue-500 to-blue-600",
+                color: "blue"
               },
               {
                 icon: Users,
                 title: "Indique e Ganhe",
-                description: "Indique amigos e ganhe 10% de desconto no próximo serviço"
+                description: "Indique amigos e ganhe 10% de desconto no próximo serviço",
+                gradient: "from-purple-500 to-purple-600",
+                color: "purple"
               },
               {
                 icon: Calendar,
                 title: "Agendamento Online",
-                description: "Agende seus serviços de forma rápida e prática pelo app"
+                description: "Agende seus serviços de forma rápida e prática pelo app",
+                gradient: "from-indigo-500 to-indigo-600",
+                color: "indigo"
               }
             ].map((benefit, index) => (
               <motion.div
@@ -508,13 +534,35 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                className="bg-white border-2 border-blue-500/30 rounded-2xl p-8 hover:border-blue-500 transition-all hover:scale-105 group shadow-lg"
+                className="group relative"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/60 transition-all">
-                  <benefit.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-black">{benefit.title}</h3>
-                <p className="text-gray-700 leading-relaxed text-lg">{benefit.description}</p>
+                {/* Card com efeito glassmorphism */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur"></div>
+                
+                <Card className="relative bg-white/80 backdrop-blur-sm border-2 border-gray-100 rounded-2xl p-8 hover:border-transparent transition-all hover:scale-105 hover:shadow-2xl shadow-lg h-full">
+                  <CardContent className="p-0">
+                    {/* Icon com efeito luxuoso */}
+                    <motion.div
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
+                      className={`w-20 h-20 bg-gradient-to-br ${benefit.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-xl group-hover:shadow-2xl transition-all relative`}
+                    >
+                      <div className={`absolute inset-0 bg-gradient-to-br ${benefit.gradient} rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity`}></div>
+                      <benefit.icon className="w-10 h-10 text-white relative z-10" />
+                    </motion.div>
+
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900 group-hover:text-blue-600 transition-colors">
+                      {benefit.title}
+                    </h3>
+                    
+                    <p className="text-gray-600 leading-relaxed text-base">
+                      {benefit.description}
+                    </p>
+
+                    {/* Decorative line */}
+                    <div className="mt-6 h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full group-hover:w-full transition-all duration-500"></div>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -693,29 +741,110 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Final */}
-      <section className="py-24 px-4 bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* CTA Final - Design Ultra Premium */}
+      <section className="relative py-32 px-4 overflow-hidden">
+        {/* Background com gradiente animado */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-500 to-purple-600">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiLz48L2c+PC9zdmc+')] opacity-30"></div>
+        </div>
+
+        {/* Efeitos de luz */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-300/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+
+        <div className="max-w-5xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              Pronto para transformar seu veículo?
-            </h2>
-            <p className="text-xl text-white/90 mb-8 font-semibold">
-              Agende agora e ganhe desconto no primeiro serviço
-            </p>
-            <Link to={createPageUrl("Agendamento")}>
-              <Button 
-                size="lg"
-                className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-12 py-6 shadow-2xl transition-all hover:scale-105 font-bold"
-              >
-                Agendar Agora
-                <ChevronRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
+            {/* Badge */}
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="inline-block mb-6"
+            >
+              <Badge className="bg-white/20 text-white border border-white/30 backdrop-blur-sm px-6 py-2 text-sm font-semibold">
+                🎁 Oferta Especial para Novos Clientes
+              </Badge>
+            </motion.div>
+
+            {/* Título */}
+            <motion.h2
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl"
+            >
+              Pronto para transformar
+              <br />
+              <span className="bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-200 bg-clip-text text-transparent">
+                seu veículo?
+              </span>
+            </motion.h2>
+
+            {/* Subtítulo */}
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="text-xl md:text-2xl text-white/95 mb-12 font-medium max-w-3xl mx-auto leading-relaxed"
+            >
+              Agende agora e ganhe <span className="font-bold text-yellow-300">15% de desconto</span> no primeiro serviço
+            </motion.p>
+
+            {/* Botão */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
+              <Link to={createPageUrl("Agendamento")}>
+                <Button 
+                  size="lg"
+                  className="group relative bg-white text-blue-600 hover:bg-yellow-50 text-xl px-16 py-8 shadow-2xl transition-all hover:scale-110 font-bold rounded-full overflow-hidden"
+                >
+                  {/* Efeito de brilho no hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-1000"></div>
+                  
+                  <span className="relative z-10 flex items-center gap-3">
+                    <Calendar className="w-6 h-6" />
+                    Agendar Agora
+                    <ChevronRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                  </span>
+                </Button>
+              </Link>
+            </motion.div>
+
+            {/* Trust badges */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+              className="mt-12 flex flex-wrap justify-center gap-6 text-white/80"
+            >
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <Star className="w-5 h-5 fill-yellow-300 text-yellow-300" />
+                <span className="text-sm font-medium">4.9/5 Avaliação</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <Users className="w-5 h-5" />
+                <span className="text-sm font-medium">450+ Clientes Satisfeitos</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+                <Award className="w-5 h-5" />
+                <span className="text-sm font-medium">15 Anos de Experiência</span>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
